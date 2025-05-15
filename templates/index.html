@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán mức tiêu thụ điện năng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dự đoán mức tiêu thụ điện năng</h1>
+        <form action="/predict" method="post">
+            <label for="temperature">Nhiệt độ (°C):</label>
+            <input type="number" step="0.1" id="temperature" name="temperature" required>
+
+            <label for="humidity">Độ ẩm (%):</label>
+            <input type="number" step="0.1" id="humidity" name="humidity" required>
+
+            <label for="windspeed">Tốc độ gió (m/s):</label>
+            <input type="number" step="0.1" id="windspeed" name="windspeed" required>
+
+            <label for="general_diffuse_flows">Dòng khuếch tán chung:</label>
+            <input type="number" step="0.1" id="general_diffuse_flows" name="general_diffuse_flows" required>
+
+            <label for="hour">Giờ trong ngày (0-23):</label>
+            <input type="number" id="hour" name="hour" min="0" max="23" required>
+
+            <button type="submit">Dự đoán</button>
+        </form>
+        {% if prediction_text %}
+        <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
